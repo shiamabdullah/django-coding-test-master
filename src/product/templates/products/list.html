@@ -61,51 +61,50 @@
                         
                         
                     <td>{{product.id}}</td>
-                    <td>{{product.title}} <br> Created at : 25-Aug-2020</td>
+                    <td >{{product.title}} <br> Created at : 25-Aug-2020</td>
                     <td> 
-                        <!-- {{product.description}} -->
+                        {{product.description }}
                     </td>
                     
                   
                         
-                    <td>
+                    <td style="width:30%">
                         <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
                             <dt class="col-sm-3 pb-0">
-                                
-<!--                                 
-                                {% for type in  variant_types  %}
-                                {{type.id}}
-                                {% endfor %} -->                                
+                                                               
                                 {% for variant in product_variant  %}
-                                    {% if variant.product_id == product.id%}
+                                
+
+                                    {% if variant.product_id == product.id %}
                                         {{variant.variant_title}}
-                                        
                                         <br>
-                                       
-                                           
-                                            
+
                                     {% endif %}
-                                {% endfor %}
+                               
+                                {% endfor %} 
 
 
                             </dt>
                             <dd class="col-sm-9">
+                                {% for variant in product_variant_price  %}
+                                {% if variant.product_id == product.id%}
+
                                 <dl class="row mb-0">
                                     <dt class="col-sm-4 pb-0">
-                                           <!-- {{product_variant_price}} -->
-                                {% for variant in product_variant_price  %}
                                     
-                                {% if variant.product_id == product.id%}
                                     {{variant.price}}
-                                    {{variant.product_variant_one}}
-                                {% endif %}
-                                    
-                            {% endfor %}
+                                 <br>
+                               
 
                                     </dt>
-                                    <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                   
+                                    <dd class="col-sm-8 pb-0">InStock : {{variant.stock}}</dd>
                                 </dl>
+
+                                    {% endif %}
+                                    
+                                    {% endfor %}
                             </dd>
                         </dl>
                         <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more
