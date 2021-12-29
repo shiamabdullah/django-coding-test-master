@@ -56,18 +56,54 @@
 
                 <tbody>
                 <tr>
-                    <td>1</td>
-                    <td>T-Shirt <br> Created at : 25-Aug-2020</td>
-                    <td>Quality product in low cost</td>
+                    
+                    {% for product in products  %}
+                        
+                        
+                    <td>{{product.id}}</td>
+                    <td>{{product.title}} <br> Created at : 25-Aug-2020</td>
+                    <td> 
+                        <!-- {{product.description}} -->
+                    </td>
+                    
+                  
+                        
                     <td>
                         <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
                             <dt class="col-sm-3 pb-0">
-                                SM/ Red/ V-Nick
+                                
+<!--                                 
+                                {% for type in  variant_types  %}
+                                {{type.id}}
+                                {% endfor %} -->                                
+                                {% for variant in product_variant  %}
+                                    {% if variant.product_id == product.id%}
+                                        {{variant.variant_title}}
+                                        
+                                        <br>
+                                       
+                                           
+                                            
+                                    {% endif %}
+                                {% endfor %}
+
+
                             </dt>
                             <dd class="col-sm-9">
                                 <dl class="row mb-0">
-                                    <dt class="col-sm-4 pb-0">Price : 200.0</dt>
+                                    <dt class="col-sm-4 pb-0">
+                                           <!-- {{product_variant_price}} -->
+                                {% for variant in product_variant_price  %}
+                                    
+                                {% if variant.product_id == product.id%}
+                                    {{variant.price}}
+                                    {{variant.product_variant_one}}
+                                {% endif %}
+                                    
+                            {% endfor %}
+
+                                    </dt>
                                     <dd class="col-sm-8 pb-0">InStock : 50.</dd>
                                 </dl>
                             </dd>
@@ -81,7 +117,10 @@
                         </div>
                     </td>
                 </tr>
+                {% endfor %}
+
                 </tbody>
+
 
             </table>
         </div>
