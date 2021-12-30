@@ -66,16 +66,12 @@
                         {{product.description }}
                     </td>
                     
-                  
-                        
                     <td style="width:30%">
                         <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
                             <dt class="col-sm-3 pb-0">
                                                                
                                 {% for variant in product_variant  %}
-                                
-
                                     {% if variant.product_id == product.id %}
                                         {{variant.variant_title}}
                                         <br>
@@ -129,11 +125,41 @@
     <div class="card-footer">
         <div class="row justify-content-between">
             <div class="col-md-6">
-                <p>Showing 1 to 10 out of 100</p>
+                {% if is_paginated %}
+
+                <p>
+                    Showing {{page_obj.start_index}}
+                    to {{page_obj.end_index}} out of  {{paginator.count}}
+
+                </p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
+                <ul class="pagination">
+
+                  {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                  {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                  {% endif %}
+
+                  {% for i in paginator.page_range %}
+                    {% if page_obj.number == i %}
+                      <li class="active page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                      <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  
+                  {% if page_obj.has_next %}
+                    <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                  {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                  {% endif %}
+                </ul>
+              {% endif %}
 
             </div>
+          
         </div>
     </div>
 </div>

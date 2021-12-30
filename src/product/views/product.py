@@ -13,30 +13,56 @@ class CreateProductView(generic.TemplateView):
         context['variants'] = list(variants.all())
         return context
     
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
+# from django.core.paginator import Paginator
+# class ProductListView(TemplateView):
+#     template_name = "products/list.html"
+#     def get_context_data(self, **kwargs):
+#         context = super(ProductListView, self).get_context_data(**kwargs)
+#         product = Product.objects.filter().values('id', 'title','description')
+        
+#         variant_types = Variant.objects.filter().values()
+#         product_variant = ProductVariant.objects.filter().values().order_by('variant_id')
+#         product_variant_price = ProductVariantPrice.objects.filter().values()
+#         p = Paginator(product, 2)
 
-class ProductListView(TemplateView):
+#         context['products'] = list(product.all())
+#         context['product_variant'] = list(product_variant.all())
+#         context['variant_types'] = list(variant_types.all())
+#         context['product_variant_price'] = list(product_variant_price.all())
+#         context['paginator']=p
+#         return context
+    
+from django.views.generic import ListView
+from django.core.paginator import Paginator
+
+class ProductListView(ListView):
     template_name = "products/list.html"
-# 'id', 'product', 'product_id', 'product_variant_one', 'product_variant_three', 'product_variant_two',
+    model=Product
+    paginate_by= 5
+    context_object_name = 'products'
+
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
-        product = Product.objects.filter().values('id', 'title','description')
         
         variant_types = Variant.objects.filter().values()
         product_variant = ProductVariant.objects.filter().values().order_by('variant_id')
         product_variant_price = ProductVariantPrice.objects.filter().values()
-        
-        context['products'] = list(product.all())
+
         context['product_variant'] = list(product_variant.all())
         context['variant_types'] = list(variant_types.all())
         context['product_variant_price'] = list(product_variant_price.all())
-        
         return context
+
     
 
+# class BaseProductView(generic.View):
+#     model = Product
+#     template_name = 'product/create.html'
+#     success_url = '/product/list'
 
-# class ProductView(BaseVariantView, generics.ListView):
-#     template_name = 'variants/list.html'
+# class ProductView(BaseProductView, generic.ListView):
+#     template_name = 'products/list.html'
 #     paginate_by = 10
 
 #     def get_queryset(self):
@@ -45,7 +71,7 @@ class ProductListView(TemplateView):
 #         for key in self.request.GET:
 #             if self.request.GET.get(key):
 #                 filter_string[key] = self.request.GET.get(key)
-#         return Variant.objects.filter(**filter_string)
+#         return Product.objects.filter(**filter_string)
 
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
