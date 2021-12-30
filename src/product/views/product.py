@@ -1,4 +1,5 @@
 from django.views import generic
+from django.views.generic.edit import CreateView
 
 from product.models import Product, Variant
 from product.models import ProductVariant, ProductVariantPrice
@@ -43,16 +44,12 @@ class ProductListView(ListView):
         
         context['title_filter']= self.request.GET.get('title_filter','')
         context['date_filter']= self.request.GET.get('date_filter','')
-        # context["all_table_fields"]=Product._meta.get_fields()        
 
-        variant_filter= self.request.GET.get('variant_filter','')
         
         variants = Variant.objects.all()
-        print(variant_filter)
+        
         product_variant = ProductVariant.objects.all()
         product_variant_distinct = ProductVariant.objects.values('variant_title','variant').distinct()
-        
-        
         
         product_variant_price = ProductVariantPrice.objects.all()
 
@@ -60,12 +57,6 @@ class ProductListView(ListView):
         context['product_variant_distinct'] = product_variant_distinct
         context['variants'] = variants
         context['product_variant_price'] = product_variant_price
-        # context['request'] = ''
-        # context['request2'] = ''
+   
         
         return context
-        # if self.request.GET:
-        #     context['request'] = self.request.GET['title__icontains']
-        #     context['request2'] = self.request.GET['created_at']
-        # return context
-
