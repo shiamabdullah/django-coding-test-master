@@ -17,8 +17,28 @@
                 <input type="text" name="title_filter" value="{{title_filter}}"placeholder="Product Title" class="form-control">
             </div>
             <div class="col-md-2">
-                <select name="variant" id="" class="form-control">
+                <select name="variant_filter" value="{{variant_filter}}" id="" class="form-control">
+
                     <option selected disabled>--Select A Variant--</option>
+
+                    
+                    {% for variant in variant_types %}
+
+                       <option  selected disabled> {{variant.title}} </option> 
+                        
+                        {% for p_v in product_variant %}
+                            <option> p_v</option>
+                            {% if p_v == variant.id%}
+                                <option> {{p_v.id}} </option>
+                            {% endif %}
+                                
+                        {% endfor %}
+                            
+                    {% endfor %}
+                    
+                    
+                 
+                        
 
                 </select>
             </div>
@@ -70,40 +90,42 @@
                     </td>
                     
                     <td style="width:30%">
+                        
                         <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
-
+                            {% for pvp in product_variant_price %}
+                            {% if pvp.product_id == product.id%}
                             <dt class="col-sm-3 pb-0">
                                                                
-                                {% for variant in product_variant  %}
-                                    {% if variant.product_id == product.id %}
-                                        {{variant.variant_title}}
-                                        <br>
+                                
+                                
+                                
+                                {{pvp.product_variant_one.variant_title}}/
+                                {{pvp.product_variant_two.variant_title}}/
+                                {{pvp.product_variant_three.variant_title}} 
 
-                                    {% endif %}
-                               
-                                {% endfor %} 
 
+                            
 
                             </dt>
                             <dd class="col-sm-9">
-                                {% for variant in product_variant_price  %}
-                                {% if variant.product_id == product.id%}
-
+                              
+                                
                                 <dl class="row mb-0">
                                     <dt class="col-sm-4 pb-0">
-                                    Price : {{variant.price}}
+                                    Price : {{pvp.price}}
                                  <br>
                                
 
                                     </dt>
                                    
-                                    <dd class="col-sm-8 pb-0">InStock : {{variant.stock}}</dd>
+                                    <dd class="col-sm-8 pb-0">InStock : {{pvp.stock}}</dd>
                                 </dl>
 
-                                    {% endif %}
-                                    
-                                    {% endfor %}
+                                  
                             </dd>
+                            {% endif %}
+                                    
+                            {% endfor %}
                         </dl>
                         <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more
                         </button>
