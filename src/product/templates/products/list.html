@@ -12,8 +12,9 @@
 <div class="card">
     <form action="" method="get" class="card-header">
         <div class="form-row justify-content-between">
+            
             <div class="col-md-2">
-                <input type="text" name="title" placeholder="Product Title" class="form-control">
+                <input type="text" name="title__icontains" value="{{ request }}"placeholder="Product Title" class="form-control">
             </div>
             <div class="col-md-2">
                 <select name="variant" id="" class="form-control">
@@ -61,7 +62,9 @@
                         
                         
                     <td>{{product.id}}</td>
-                    <td >{{product.title}} <br> Created at : 25-Aug-2020</td>
+                    <td >{{product.title}} <br> 
+                        Created at : {{product.created_at}}
+                    </td>
                     <td> 
                         {{product.description }}
                     </td>
@@ -88,8 +91,7 @@
 
                                 <dl class="row mb-0">
                                     <dt class="col-sm-4 pb-0">
-                                    
-                                    {{variant.price}}
+                                    Price : {{variant.price}}
                                  <br>
                                
 

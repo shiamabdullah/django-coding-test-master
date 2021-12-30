@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import DateTimeField
 
 
 # Create your models here.
@@ -12,6 +13,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     sku = models.SlugField(max_length=255)
     description = models.TextField()
+    created_at = models.DateField(auto_now_add=True)
 
 
 class ProductImage(models.Model):
