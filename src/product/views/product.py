@@ -47,15 +47,18 @@ class ProductListView(ListView):
 
         variant_filter= self.request.GET.get('variant_filter','')
         
-        variant_types = Variant.objects.values()
+        variants = Variant.objects.all()
         print(variant_filter)
         product_variant = ProductVariant.objects.all()
+        product_variant_distinct = ProductVariant.objects.values('variant_title','variant').distinct()
+        
         
         
         product_variant_price = ProductVariantPrice.objects.all()
 
         context['product_variant'] = product_variant
-        context['variant_types'] = list(variant_types.all())
+        context['product_variant_distinct'] = product_variant_distinct
+        context['variants'] = variants
         context['product_variant_price'] = product_variant_price
         # context['request'] = ''
         # context['request2'] = ''

@@ -22,18 +22,23 @@
                     <option selected disabled>--Select A Variant--</option>
 
                     
-                    {% for variant in variant_types %}
+                       <option  selected disabled> </option> 
+                    
+                    {% for type in variants %}
+                    <option selected disabled> {{type.title}}</option>
 
-                       <option  selected disabled> {{variant.title}} </option> 
+                    {% for variant in product_variant_distinct %}
+                    
+                    {% if type.id == variant.variant %}
+                    
+                    <option > {{variant.variant_title}}  </option> 
+
+                    {% endif %}
                         
-                        {% for p_v in product_variant %}
-                            <option> p_v</option>
-                            {% if p_v == variant.id%}
-                                <option> {{p_v.id}} </option>
-                            {% endif %}
-                                
-                        {% endfor %}
-                            
+                    
+                        
+                    {% endfor %}
+                                                    
                     {% endfor %}
                     
                     
@@ -95,16 +100,12 @@
                             {% for pvp in product_variant_price %}
                             {% if pvp.product_id == product.id%}
                             <dt class="col-sm-3 pb-0">
-                                                               
-                                
-                                
-                                
+                                  
                                 {{pvp.product_variant_one.variant_title}}/
                                 {{pvp.product_variant_two.variant_title}}/
                                 {{pvp.product_variant_three.variant_title}} 
 
 
-                            
 
                             </dt>
                             <dd class="col-sm-9">
@@ -123,8 +124,7 @@
 
                                   
                             </dd>
-                            {% endif %}
-                                    
+                            {% endif %}                  
                             {% endfor %}
                         </dl>
                         <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more
