@@ -14,7 +14,7 @@
         <div class="form-row justify-content-between">
             
             <div class="col-md-2">
-                <input type="text" name="title__icontains" value="{{ request }}"placeholder="Product Title" class="form-control">
+                <input type="text" name="title_filter" value="{{title_filter}}"placeholder="Product Title" class="form-control">
             </div>
             <div class="col-md-2">
                 <select name="variant" id="" class="form-control">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <input type="date" name="date" placeholder="Date" class="form-control">
+                <input type="date" name="date_filter" value='date_filter' placeholder="Date" class="form-control">
             </div>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-primary float-right"><i class="fa fa-search"></i></button>
